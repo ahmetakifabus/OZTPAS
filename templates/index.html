@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sınav-Karne Analiz Platformu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .upload-zone {
+            border: 3px dashed #667eea;
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            border-color: #764ba2;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            border: 8px solid #f3f4f6;
+            border-top: 8px solid #8B5CF6;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <div class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-6 py-20 text-center">
+            <h1 class="text-6xl font-black mb-4">Sınav-Karne Analiz</h1>
+            <p class="text-2xl text-purple-100 mb-8">Gelişmiş İstatistiksel Analiz Platformu</p>
+            <button onclick="openModal()"
+                class="bg-green-500 text-white px-8 py-4 rounded-full font-bold hover:scale-105 transition">Analize
+                Başla</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-black text-gray-800">Dosya Yükleme</h2>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+
+            <p class="text-center text-lg text-gray-700 mb-8 font-semibold">
+                Lütfen Sınav (TDS, MDS...) ve Karne (TURKCE, MAT...) CSV dosyalarınızı yükleyin.
+            </p>
+
+            <form id="uploadForm" onsubmit="handleUpload(event)">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="upload-zone rounded-2xl p-12 text-center bg-purple-50 transition">
+                        <h3 class="text-2xl font-bold mb-3">Sınav Dosyası</h3>
+                        <input type="file" id="sinavFile" name="sinav" accept=".csv" class="hidden"
+                            onchange="updateLabel(this, 'sinavStatus')" required>
+                        <label for="sinavFile"
+                            class="btn-primary text-white px-8 py-4 rounded-full font-bold cursor-pointer inline-block transition">Dosya
+                            Seç</label>
+                        <div id="sinavStatus" class="mt-4 font-semibold text-gray-600">Dosya seçilmedi</div>
+                    </div>
+
+                    <div class="upload-zone rounded-2xl p-12 text-center bg-blue-50 transition">
+                        <h3 class="text-2xl font-bold mb-3">Karne Dosyası</h3>
+                        <input type="file" id="karneFile" name="karne" accept=".csv" class="hidden"
+                            onchange="updateLabel(this, 'karneStatus')" required>
+                        <label for="karneFile"
+                            class="btn-primary text-white px-8 py-4 rounded-full font-bold cursor-pointer inline-block transition">Dosya
+                            Seç</label>
+                        <div id="karneStatus" class="mt-4 font-semibold text-gray-600">Dosya seçilmedi</div>
+                    </div>
+                </div>
+
+                <div id="analyzeBtn">
+                    <button type="submit"
+                        class="w-full btn-primary text-white py-6 rounded-2xl font-bold text-xl shadow-2xl transition">Analizi
+                        Başlat</button>
+                </div>
+            </form>
+
+            <div id="loading" class="hidden text-center py-8">
+                <div class="spinner"></div>
+                <p class="text-xl font-bold text-gray-700 mt-6">Sunucuda analiz ediliyor...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="max-w-7xl mx-auto px-6 py-20 hidden">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-black text-gray-800 mb-4">Analiz Sonuçları</h2>
+            <div class="flex justify-center gap-4 mt-8">
+                <a id="downloadZipBtn" href="#"
+                    class="bg-green-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-green-700 transition flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Tüm Sonuçları İndir (ZIP)
+                </a>
+                <button onclick="cleanupAndReload()"
+                    class="bg-gray-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-gray-600 transition">Temizle
+                    ve Çık</button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden p-4">
+            <img id="resultImage" src="" alt="Analiz Grafiği" class="w-full h-auto">
+        </div>
+    </div>
+
+    <footer class="gradient-bg text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h3 class="text-3xl font-bold mb-2">Sınav-Karne Analiz Platformu</h3>
+            <p class="text-purple-200">© 2026 | MIT License | Made with AAİHL (Powered by Python)</p>
+        </div>
+    </footer>
+
+    <script>
+        function openModal() { document.getElementById('uploadModal').classList.add('active'); }
+        function closeModal() { document.getElementById('uploadModal').classList.remove('active'); }
+
+        function updateLabel(input, statusId) {
+            if (input.files && input.files[0]) {
+                document.getElementById(statusId).innerHTML = `<span class="text-green-600">✓ ${input.files[0].name}</span>`;
+            }
+        }
+
+        function handleUpload(e) {
+            e.preventDefault();
+            const form = document.getElementById('uploadForm');
+            const data = new FormData(form);
+
+            document.getElementById('analyzeBtn').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            fetch('/upload', {
+                method: 'POST',
+                body: data
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+
+                    // Success
+                    document.getElementById('loading').classList.add('hidden');
+                    closeModal();
+
+                    const img = document.getElementById('resultImage');
+                    img.src = data.image_url;
+
+                    document.getElementById('downloadZipBtn').href = '/download_zip';
+
+                    document.getElementById('results').classList.remove('hidden');
+                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hata oluştu:\n' + error.message);
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('analyzeBtn').classList.remove('hidden');
+                });
+        }
+
+        function cleanupAndReload() {
+            if (confirm("Tüm sonuçlar silinecek. Emin misiniz?")) {
+                fetch('/cleanup', { method: 'POST' })
+                    .then(() => window.location.reload());
+            }
+        }
+
+        // Auto cleanup on unload? 
+        // Note: unreliable but helpful.
+        window.addEventListener('beforeunload', function () {
+            navigator.sendBeacon('/cleanup');
+        });
+    </script>
+</body>
+
+</html>

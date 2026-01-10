@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Sınav Karne Analiz
+Comment=Sınav ve Karne Verilerini Analiz Et
+Exec=/home/alind/Belgeler/OZTPBS/run.sh
+Icon=system-run
+Terminal=true
+Type=Application
+Categories=Education;Science;
+Name[tr]=Sınav Karne Analiz
