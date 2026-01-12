@@ -4,7 +4,8 @@ import shutil
 import uuid
 import zipfile
 import hashlib
-from flask import Flask, render_template, request, jsonify, send_from_directory, send_file
+from flask import Flask, render_template, request, jsonify, send_from_directory, send_file, session
+import traceback
 import matplotlib
 matplotlib.use('Agg') # Set backend to non-interactive
 
@@ -17,11 +18,13 @@ except ImportError:
     SinavKarneAnaliz = None
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Ensure upload root exists
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.secret_key = os.environ.get('SECRET_KEY', 'oztpbs-secret-key-123')
 
 class InitializedAnaliz(SinavKarneAnaliz):
     """Subclass to override methods for web usage"""
@@ -102,11 +105,12 @@ class InitializedAnaliz(SinavKarneAnaliz):
         return str(grafik_dosya)
 
 def get_user_dir():
-    # Create unique dir based on IP
-    ip = request.remote_addr
-    # Hash it for simple privacy
-    user_hash = hashlib.md5(ip.encode()).hexdigest()
-    user_path = os.path.join(app.config['UPLOAD_FOLDER'], user_hash)
+    # Use session for stable user directory across requests
+    if 'user_id' not in session:
+        session['user_id'] = str(uuid.uuid4())
+    
+    user_id = session['user_id']
+    user_path = os.path.join(app.config['UPLOAD_FOLDER'], user_id)
     if not os.path.exists(user_path):
         os.makedirs(user_path)
     return user_path
@@ -169,22 +173,37 @@ def serve_result(filename):
 
 @app.route('/download_zip')
 def download_zip():
-    user_path = get_user_dir()
-    zip_path = os.path.join(user_path, 'sonuclar.zip')
-    
-    with zipfile.ZipFile(zip_path, 'w') as zf:
-        for f in ['regresyon_analizi.png', 'regresyon_karsilastirma.csv', 'detayli_sonuclar.csv']:
-            full_path = os.path.join(user_path, f)
-            if os.path.exists(full_path):
-                zf.write(full_path, f)
-                
-    return send_file(zip_path, as_attachment=True)
+    try:
+        user_path = get_user_dir()
+        zip_path = os.path.join(user_path, 'sonuclar.zip')
+        
+        if os.path.exists(zip_path):
+            os.remove(zip_path) # Remove old if exists
+            
+        with zipfile.ZipFile(zip_path, 'w') as zf:
+            added = False
+            for f in ['regresyon_analizi.png', 'regresyon_karsilastirma.csv', 'detayli_sonuclar.csv']:
+                full_path = os.path.join(user_path, f)
+                if os.path.exists(full_path):
+                    zf.write(full_path, f)
+                    added = True
+            
+            if not added:
+                 zf.writestr('info.txt', 'Analiz sonuclari bulunamadi. Lütfen tekrar analiz yapın.')
+                    
+        return send_file(zip_path, as_attachment=True)
+    except Exception as e:
+        traceback.print_exc()
+        return str(e), 500
 
 @app.route('/cleanup', methods=['POST'])
 def cleanup():
     user_path = get_user_dir()
     try:
+        # Instead of deleting immediately, we could also use a timer 
+        # but for this simple version, let's just make it a conscious action
         if os.path.exists(user_path):
+            # Only remove if specifically asked or on next upload
             shutil.rmtree(user_path)
         return jsonify({'status': 'cleaned'})
     except Exception as e:
