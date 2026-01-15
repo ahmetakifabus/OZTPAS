@@ -1,34 +1,34 @@
-# Sinav-Karne Analiz Platformu
+# 📊 Sinav-Karne Analiz Platformu
 
 Modern ve interaktif bir web uygulamasi ile ogrenci sinav ve karne notlari arasindaki iliskiyi analiz edin. Gelismis istatistiksel yontemler ve gorsel analizlerle egitim verilerinizi anlayin.
 
-## Ozellikler
+## ✨ Ozellikler
 
-### Istatistiksel Analizler
+### 📈 Istatistiksel Analizler
 - **Basit Regresyon Analizi**: Her ders icin tekli degisken analizi
 - **Coklu Regresyon Analizi**: Tum dersleri birlikte degerlendirerek gelismis tahminler
 - **T-Puani Donusumu**: Standartlastirilmis puanlarla adil karsilastirma
 - **R2 ve RMSE Metrikleri**: Model performansini olcun
 
-### Gorsellestirmeler
+### 🎨 Gorsellestirmeler
 - **Interaktif Grafikler**: Plotly.js ile dinamik scatter plot'lar
 - **Bar Chart'lar**: Katsayi analizi ve karsilastirmalar
 - **Gercek Zamanli Guncellemeler**: Aninda sonuc goruntuleme
 - **Responsive Tasarim**: Tum cihazlarda mukemmel gorunum
 
-### Veri Yonetimi
+### 📁 Veri Yonetimi
 - **CSV Dosya Destegi**: Kolay veri yukleme
 - **Sonuc Indirme**: Analiz sonuclarini CSV olarak kaydedin
 - **Tarayici Tabanli**: Sunucu gerektirmez, tum islemler istemci tarafinda
 
-### Modern Arayuz
+### 💻 Modern Arayuz
 - **Gradient Tasarim**: Goz alici renkler ve gecisler
 - **Smooth Animasyonlar**: Akici kullanici deneyimi
 - **Dark Mode Hazir**: Koyu tema destegi
 
-## Hizli Baslangic
+## 🚀 Hizli Baslangic
 
-## CSV Dosya Formati
+## 📄 CSV Dosya Formati
 
 ### Sinav Dosyasi (sinav.csv)
 ```csv
@@ -64,7 +64,7 @@ OGR003;4,7;4,5;4,6;4,3;4,6
 
 **Not:** Karne notlari ondalik ayirici olarak virgul (`,`) kullanir.
 
-## Kullanim
+## 🛠️ Kullanim
 
 1. **Dosya Yukleme**
    - Sinav CSV dosyanizi yukleyin
@@ -85,14 +85,14 @@ OGR003;4,7;4,5;4,6;4,3;4,6
    - "Sonuclari Indir (CSV)" butonu ile analiz sonuclarini kaydedin
    - Excel'de acip daha detayli incelemeler yapin
 
-## Teknolojiler
+## 🔧 Teknolojiler
 
 - **HTML5**: Yapi ve icerik
 - **Tailwind CSS**: Modern ve responsive tasarim
 - **Vanilla JavaScript**: Tum hesaplamalar ve mantik
 - **Plotly.js**: Interaktif grafikler ve gorsellestirmeler
 
-## Analiz Yontemleri
+## 🧠 Analiz Yontemleri
 
 ### T-Puani Donusumu
 Farkli olceklerdeki notlari standartlastirir:
@@ -124,7 +124,7 @@ Y = beta0 + beta1X1 + beta2X2 + ... + beta5X5 + epsilon
 - **R2**: Modelin acikladigi varyans orani (0-1)
 - **RMSE**: Ortalama hata (dusuk = iyi)
 
-## Katkida Bulunma
+## 🤝 Katkida Bulunma
 
 Katkilarinizi bekliyoruz! Lutfen su adimlari izleyin:
 
@@ -134,7 +134,7 @@ Katkilarinizi bekliyoruz! Lutfen su adimlari izleyin:
 4. Branch'inizi push edin (`git push origin feature/harika-ozellik`)
 5. Pull Request acin
 
-### Gelistirme Fikirleri
+### 💡 Gelistirme Fikirleri
 - [ ] Excel dosya destegi ekle
 - [ ] PDF rapor olusturma
 - [ ] Daha fazla istatistiksel test
@@ -144,21 +144,21 @@ Katkilarinizi bekliyoruz! Lutfen su adimlari izleyin:
 - [ ] Ogrenci bazli detayli analiz
 - [ ] Zaman serisi analizi
 
-## Lisans
+## 📜 Lisans
 
 Bu proje MIT Lisansi altinda lisanslanmistir - detaylar icin [LICENSE](LICENSE) dosyasina bakin.
 
-## Gelistirici
+## 👤 Gelistirici
 
 **Proje:** - (https://github.com/ahmetakifabus)
 
-## Tesekkurler
+## 🙏 Tesekkurler
 
 - [Tailwind CSS](https://tailwindcss.com/) - Harika CSS framework'u icin
 - [Plotly.js](https://plotly.com/javascript/) - Guclu gorsellestirme kutuphanesi icin
 - [Google Fonts](https://fonts.google.com/) - Inter font ailesi icin
 
-## Iletisim
+## 📞 Iletisim
 
 Sorulariniz veya onerileriniz icin:
 - Email: ahmetakifabus91@proton.me, rmzucar@gmail.com, bozdemiryusuf@gmail.com
@@ -167,4 +167,4 @@ Sorulariniz veya onerileriniz icin:
 
 Bu projeyi begendiyseniz yildiz vermeyi unutmayin!
 
-**Yapim: 2025 | AAIHL**
+**Yapim: 2025 | AAIHL 🏗️**
