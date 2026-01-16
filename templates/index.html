@@ -8,17 +8,34 @@
     <link rel="icon" type="image/png" href="/static/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@700;800;900&display=swap');
 
         * {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
 
+        body {
+            background: #0a0e1a;
+        }
+
         .gradient-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 30%, #312e81 60%, #4c1d95 100%);
             position: relative;
             overflow: hidden;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         #particles-canvas {
@@ -28,14 +45,66 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         .hero-title {
-            animation: fadeInUp 1s ease-out;
-            background: linear-gradient(to right, #fff, #a5b4fc);
+            animation: fadeInUp 1s ease-out, textGlow 3s ease-in-out infinite;
+            background: linear-gradient(45deg, #fff, #a5b4fc, #c084fc, #fff);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+        }
+
+        @keyframes textGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 40px rgba(139, 92, 246, 0.8));
+            }
+        }
+
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(16, 185, 129, 0.8), 0 0 60px rgba(16, 185, 129, 0.4);
+            }
         }
 
         .modal {
@@ -45,15 +114,94 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            animation: modalFadeIn 0.3s ease-out;
         }
 
         .modal.active {
             display: flex;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            animation: modalSlideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .upload-zone {
+            border: 3px dashed rgba(139, 92, 246, 0.3);
+            background: rgba(30, 41, 59, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-zone:hover {
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(139, 92, 246, 0.1);
+            transform: scale(1.02);
+        }
+
+        .upload-zone.drag-over {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .file-preview {
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #10b981);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
         }
 
         @keyframes float {
@@ -88,50 +236,154 @@
             background: rgba(30, 41, 59, 0.5);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(139, 92, 246, 0.2);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
         }
 
         .stat-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(139, 92, 246, 0.5);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+            transform: translateY(-12px) scale(1.05);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .modal-enter {
-            animation: modalFadeIn 0.3s ease-out forwards;
+        #spinner {
+            border: 4px solid rgba(139, 92, 246, 0.2);
+            border-left-color: #8b5cf6;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
         }
 
-        @keyframes modalFadeIn {
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .result-card {
+            animation: resultReveal 0.6s ease-out;
+        }
+
+        @keyframes resultReveal {
             from {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: scale(0.8) rotateX(20deg);
             }
 
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) rotateX(0);
             }
         }
 
-        #spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left-color: #10b981;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        .download-btn {
+            animation: downloadPulse 2s ease-in-out infinite;
         }
 
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        @keyframes downloadPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(99, 102, 241, 0);
+            }
         }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5),
+                0 0 20px rgba(139, 92, 246, 0.3),
+                0 0 30px rgba(139, 92, 246, 0.2);
+        }
+    </style>
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-enter {
+    animation: modalFadeIn 0.3s ease-out forwards;
+    }
+
+    @keyframes modalFadeIn {
+    from {
+    opacity: 0;
+    transform: scale(0.95);
+    }
+
+    to {
+    opacity: 1;
+    transform: scale(1);
+    }
+    }
+
+    #spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: #10b981;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    }
+
+    .modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
     </style>
 </head>
 
@@ -148,7 +400,7 @@
             <p class="text-3xl text-indigo-200 mb-10 font-medium" style="animation: fadeInUp 1s ease-out 0.2s both;">
                 Öğrenci Z ve T Puanı Analiz Sistemi</p>
             <button onclick="openModal()"
-                class="bg-emerald-500 text-white px-10 py-5 rounded-full font-extrabold text-xl shadow-lg shadow-emerald-900/20 hover:scale-110 transition-all duration-300"
+                class="cta-button bg-emerald-500 text-white px-10 py-5 rounded-full font-extrabold text-xl shadow-lg hover:scale-110 transition-all duration-300"
                 style="animation: fadeInUp 1s ease-out 0.4s both;">Analize
                 Başla</button>
         </div>
@@ -285,37 +537,61 @@
 
     <!-- Upload Modal -->
     <div id="uploadModal" class="modal">
-        <div class="max-w-4xl mx-auto bg-slate-900 rounded-3xl shadow-4xl p-12 relative border border-slate-800 m-4">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-500 hover:text-white text-3xl">
+        <div
+            class="modal-content max-w-4xl mx-auto bg-slate-900 rounded-3xl shadow-4xl p-12 relative border border-slate-800 m-4">
+            <button onclick="closeModal()"
+                class="absolute top-6 right-6 text-slate-500 hover:text-white text-3xl transition-all hover:rotate-90">
                 ×
             </button>
-            <h2 class="text-4xl font-black text-white mb-8 text-center">Dosyalarınızı Yükleyin</h2>
+            <h2 class="text-4xl font-black text-white mb-8 text-center glow-text">Dosyalarınızı Yükleyin</h2>
             <form id="uploadForm" onsubmit="handleUpload(event)" enctype="multipart/form-data" class="space-y-8">
                 <div class="space-y-6">
-                    <div>
+                    <div class="upload-zone rounded-2xl p-8 text-center cursor-pointer" id="sinavDropZone"
+                        ondrop="handleDrop(event, 'sinavFile')" ondragover="handleDragOver(event)"
+                        ondragleave="handleDragLeave(event)">
+                        <div class="text-6xl mb-4">📄</div>
                         <label class="block text-lg font-bold text-white mb-3">Sınav Dosyası (CSV)</label>
                         <input type="file" name="sinav" id="sinavFile" accept=".csv" required
-                            onchange="updateLabel(this, 'sinavStatus')"
-                            class="block w-full text-slate-300 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 file:cursor-pointer cursor-pointer bg-slate-800 rounded-xl border-2 border-slate-700 hover:border-indigo-500 transition">
-                        <p id="sinavStatus" class="mt-2 text-sm text-slate-400">CSV dosyanızı seçin</p>
+                            onchange="updateLabel(this, 'sinavStatus')" class="hidden">
+                        <label for="sinavFile" class="cursor-pointer">
+                            <div class="text-indigo-400 font-semibold mb-2">Dosyayı sürükleyip bırakın</div>
+                            <div class="text-slate-400 text-sm">veya tıklayarak seçin</div>
+                        </label>
+                        <p id="sinavStatus" class="mt-4 text-sm text-slate-400 file-preview"></p>
+                        <div id="sinavProgress" class="progress-bar hidden">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
                     </div>
-                    <div>
+                    <div class="upload-zone rounded-2xl p-8 text-center cursor-pointer" id="karneDropZone"
+                        ondrop="handleDrop(event, 'karneFile')" ondragover="handleDragOver(event)"
+                        ondragleave="handleDragLeave(event)">
+                        <div class="text-6xl mb-4">📊</div>
                         <label class="block text-lg font-bold text-white mb-3">Karne Dosyası (CSV)</label>
                         <input type="file" name="karne" id="karneFile" accept=".csv" required
-                            onchange="updateLabel(this, 'karneStatus')"
-                            class="block w-full text-slate-300 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 file:cursor-pointer cursor-pointer bg-slate-800 rounded-xl border-2 border-slate-700 hover:border-indigo-500 transition">
-                        <p id="karneStatus" class="mt-2 text-sm text-slate-400">CSV dosyanızı seçin</p>
+                            onchange="updateLabel(this, 'karneStatus')" class="hidden">
+                        <label for="karneFile" class="cursor-pointer">
+                            <div class="text-indigo-400 font-semibold mb-2">Dosyayı sürükleyip bırakın</div>
+                            <div class="text-slate-400 text-sm">veya tıklayarak seçin</div>
+                        </label>
+                        <p id="karneStatus" class="mt-4 text-sm text-slate-400 file-preview"></p>
+                        <div id="karneProgress" class="progress-bar hidden">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
                     </div>
                 </div>
                 <div id="analyzeBtn">
                     <button type="submit"
-                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-5 rounded-2xl font-black text-xl shadow-xl hover:shadow-indigo-500/20 transition-all hover:scale-105">Analizi
-                        Başlat</button>
+                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-5 rounded-2xl font-black text-xl shadow-xl hover:shadow-indigo-500/20 transition-all hover:scale-105 relative overflow-hidden group">
+                        <span class="relative z-10">Analizi Başlat</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left">
+                        </div>
+                    </button>
                 </div>
             </form>
             <div id="loading" class="hidden text-center py-12">
                 <div id="spinner" style="display: block; margin: 0 auto;"></div>
-                <p class="text-xl font-bold text-indigo-400 mt-8 tracking-wide">Analiz Motoru Çalışıyor...</p>
+                <p class="text-xl font-bold text-indigo-400 mt-8 tracking-wide glow-text">Analiz Motoru Çalışıyor...</p>
                 <p class="text-slate-500 mt-2">İstatistikler hesaplanıyor, grafikler çiziliyor.</p>
             </div>
         </div>
@@ -373,6 +649,82 @@
             }
         }
 
+        // Drag and Drop Handlers
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e, inputId) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const input = document.getElementById(inputId);
+                input.files = files;
+                updateLabel(input, inputId.replace('File', 'Status'));
+            }
+        }
+
+        function updateLabel(input, statusId) {
+            if (input.files && input.files[0]) {
+                const fileName = input.files[0].name;
+                const fileSize = (input.files[0].size / 1024).toFixed(2);
+                document.getElementById(statusId).innerHTML =
+                    `<span class="text-green-400 font-semibold">✓ ${fileName}</span> <span class="text-slate-500">(${fileSize} KB)</span>`;
+
+                // Simulate progress bar
+                const progressBar = document.getElementById(statusId.replace('Status', 'Progress'));
+                if (progressBar) {
+                    progressBar.classList.remove('hidden');
+                    const fill = progressBar.querySelector('.progress-fill');
+                    let width = 0;
+                    const interval = setInterval(() => {
+                        width += 10;
+                        fill.style.width = width + '%';
+                        if (width >= 100) clearInterval(interval);
+                    }, 50);
+                }
+            }
+        }
+
+        // Confetti Celebration
+        function createConfetti() {
+            const colors = ['#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#3b82f6'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // Scroll Reveal Animation
+        function initScrollReveal() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(reveal => observer.observe(reveal));
+        }
+
         function handleUpload(e) {
             e.preventDefault();
             const form = document.getElementById('uploadForm');
@@ -394,10 +746,15 @@
                     document.getElementById('loading').classList.add('hidden');
                     closeModal();
 
+                    // Confetti celebration!
+                    createConfetti();
+
                     const img = document.getElementById('resultImage');
                     img.src = data.image_url;
+                    img.classList.add('result-card');
 
                     document.getElementById('downloadZipBtn').href = '/download_zip';
+                    document.getElementById('downloadZipBtn').classList.add('download-btn');
 
                     document.getElementById('results').classList.remove('hidden');
                     document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
@@ -501,6 +858,7 @@
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
             initParticles();
+            initScrollReveal();
 
             // Animate statistics
             setTimeout(() => {
