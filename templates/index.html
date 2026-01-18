@@ -513,35 +513,25 @@
                 <div class="space-y-6">
                     <div class="upload-zone rounded-2xl p-8 text-center cursor-pointer" id="sinavDropZone"
                         ondrop="handleDrop(event, 'sinavFile')" ondragover="handleDragOver(event)"
-                        ondragleave="handleDragLeave(event)">
+                        ondragleave="handleDragLeave(event)" onclick="document.getElementById('sinavFile').click()">
                         <div class="text-6xl mb-4">📄</div>
                         <label class="block text-lg font-bold text-white mb-3">Sınav Dosyası (CSV)</label>
                         <input type="file" name="sinav" id="sinavFile" accept=".csv" required
-                            onchange="updateLabel(this, 'sinavStatus')" class="hidden">
-                        <label for="sinavFile" class="cursor-pointer">
-                            <div class="text-indigo-400 font-semibold mb-2">Dosyayı sürükleyip bırakın</div>
-                            <div class="text-slate-400 text-sm">veya tıklayarak seçin</div>
-                        </label>
-                        <p id="sinavStatus" class="mt-4 text-sm text-slate-400 file-preview"></p>
-                        <div id="sinavProgress" class="progress-bar hidden">
-                            <div class="progress-fill" style="width: 0%"></div>
-                        </div>
+                            onchange="updateLabel(this, 'sinavStatus')" style="display:none">
+                        <div class="text-indigo-400 font-semibold mb-2">Dosyayı sürükleyip bırakın</div>
+                        <div class="text-slate-400 text-sm">veya tıklayarak seçin</div>
+                        <p id="sinavStatus" class="mt-4 text-sm text-green-400 file-preview"></p>
                     </div>
                     <div class="upload-zone rounded-2xl p-8 text-center cursor-pointer" id="karneDropZone"
                         ondrop="handleDrop(event, 'karneFile')" ondragover="handleDragOver(event)"
-                        ondragleave="handleDragLeave(event)">
+                        ondragleave="handleDragLeave(event)" onclick="document.getElementById('karneFile').click()">
                         <div class="text-6xl mb-4">📊</div>
                         <label class="block text-lg font-bold text-white mb-3">Karne Dosyası (CSV)</label>
                         <input type="file" name="karne" id="karneFile" accept=".csv" required
-                            onchange="updateLabel(this, 'karneStatus')" class="hidden">
-                        <label for="karneFile" class="cursor-pointer">
-                            <div class="text-indigo-400 font-semibold mb-2">Dosyayı sürükleyip bırakın</div>
-                            <div class="text-slate-400 text-sm">veya tıklayarak seçin</div>
-                        </label>
-                        <p id="karneStatus" class="mt-4 text-sm text-slate-400 file-preview"></p>
-                        <div id="karneProgress" class="progress-bar hidden">
-                            <div class="progress-fill" style="width: 0%"></div>
-                        </div>
+                            onchange="updateLabel(this, 'karneStatus')" style="display:none">
+                        <div class="text-indigo-400 font-semibold mb-2">Dosyayı sürükleyip bırakın</div>
+                        <div class="text-slate-400 text-sm">veya tıklayarak seçin</div>
+                        <p id="karneStatus" class="mt-4 text-sm text-green-400 file-preview"></p>
                     </div>
                 </div>
                 <div id="analyzeBtn">
@@ -585,17 +575,32 @@
     </div>
 
     <footer class="bg-slate-950 border-t border-slate-900 text-slate-500 py-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h3 class="text-2xl font-black text-white mb-4">OZTPAS</h3>
-            <p class="text-slate-500 mb-8 max-w-md mx-auto">Modern eğitim verileri analitik çözümü. Öğrenci
-                başarısını
-                veriye dayalı yönetin.</p>
-            <div class="flex justify-center gap-6 mb-8">
-                <a href="#" class="hover:text-white transition">Hakkında</a>
-                <a href="#" class="hover:text-white transition">Kılavuz</a>
-                <a href="#" class="hover:text-white transition">İletişim</a>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-black text-white mb-4">OZTPAS</h3>
+                    <p class="text-slate-400">Modern eğitim verileri analitik çözümü. Öğrenci başarısını veriye dayalı
+                        yönetin.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Hakkında</h4>
+                    <p class="text-slate-400 text-sm">OZTPAS, öğrenci sınav ve karne verilerini analiz eden, Z ve T
+                        puanlarını hesaplayan, regresyon analizi yapan açık kaynaklı bir eğitim platformudur. Python ve
+                        Flask ile geliştirilmiştir.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Kılavuz</h4>
+                    <p class="text-slate-400 text-sm">1. Sınav ve karne verilerinizi CSV formatında hazırlayın<br>
+                        2. "Analize Başla" butonuna tıklayın<br>
+                        3. Dosyalarınızı yükleyin<br>
+                        4. Sonuçları inceleyin ve indirin</p>
+                </div>
             </div>
-            <p class="text-sm font-medium">© 2026 | MIT License | Made with ❤️</p>
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-slate-400 mb-4">📧 İletişim: <a href="mailto:support.oztpas@proton.me"
+                        class="text-indigo-400 hover:text-indigo-300 transition">support.oztpas@proton.me</a></p>
+                <p class="text-sm font-medium">© 2026 | MIT License | Made with ❤️</p>
+            </div>
         </div>
     </footer>
 
