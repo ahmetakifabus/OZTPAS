@@ -427,17 +427,42 @@
             </div>
             <div class="bg-slate-900/50 border border-slate-800 p-8 rounded-3xl shadow-3xl">
                 <div class="mb-8">
-                    <h3 class="text-xl font-bold text-indigo-400 mb-2">T-Puanı Nedir?</h3>
+                    <h3 class="text-xl font-bold text-indigo-400 mb-2">T-Puani Nedir?</h3>
+                    <p class="text-slate-400 text-sm mb-3">
+                        Ortalamayı 50, standart sapmayi 10 olarak kabul eden bir standart puan turudur.
+                        Ogrencinin bir dersteki basarisinin diger ogrencilere gore nerede oldugunu gosterir.
+                    </p>
+                    <p class="text-slate-400 text-sm mb-3">
+                        T-puani sayesinde farkli siniflar veya farkli zorluk seviyelerindeki sinavlari adil bir sekilde
+                        karsilastirabilirsiniz.
+                        50 ustu puanlar ortalamanin uzerinde, 50 alti puanlar ise ortalamanin altinda basariyi gosterir.
+                    </p>
                     <p class="text-slate-400 text-sm">
-                        Ortalamayı 50, standart sapmayı 10 olarak kabul eden bir standart puan türüdür.
-                        Öğrencinin bir dersteki başarısının diğer öğrencilere göre nerede olduğunu gösterir.
+                        Z-skoru (standart skor) ile hesaplanir: T = 50 + 10 * Z, burada Z = (X - ortalama) / standart
+                        sapma
+                    </p>
+                </div>
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-emerald-400 mb-2">Neden Regresyon?</h3>
+                    <p class="text-slate-400 text-sm mb-3">
+                        Sinav sonuclari ile karne notlari arasindaki iliskiyi matematiksel bir modele doker.
+                        Coklu regresyon ile bir ogrencinin basarisini tum derslerin etkisini dikkate alarak tahmin eder.
+                    </p>
+                    <p class="text-slate-400 text-sm mb-3">
+                        R² (belirleme katsayisi) ile modelin aciklama gucunu, RMSE ile tahmin hatasini olceriz.
+                        Bu metrikler sayesinde analizin guvenilirligini degerlendirebilirsiniz.
+                    </p>
+                    <p class="text-slate-400 text-sm">
+                        Basit regresyon tek degiskenle, coklu regresyon ise tum dersleri bir arada analiz ederek daha
+                        kapsamli sonuclar sunar.
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-emerald-400 mb-2">Neden Regresyon?</h3>
+                    <h3 class="text-xl font-bold text-purple-400 mb-2">Ek Ozellikler</h3>
                     <p class="text-slate-400 text-sm">
-                        Sınav sonuçları ile karne notları arasındaki ilişkiyi matematiksel bir modele döker.
-                        Çoklu regresyon ile bir öğrencinin başarısını tüm derslerin etkisini dikkate alarak tahmin eder.
+                        Korelasyon matrisi ile dersler arasi iliskileri, yuzdelik siralamalar ile ogrenci konumunu,
+                        aykiri deger tespiti ile normal disi sonuclari ve performans indeksi ile genel basari puanini
+                        hesapliyoruz.
                     </p>
                 </div>
             </div>
