@@ -401,12 +401,23 @@
         <div class="grid md:grid-cols-2 gap-16 items-center mb-24">
             <div>
                 <h2 class="text-4xl font-black text-white mb-6">Projeyi Tanıyın</h2>
-                <p class="text-lg text-slate-400 leading-relaxed mb-6">
-                    OZTPAS, modern eğitim analiz yöntemlerini kullanarak öğrenci başarısını derinlemesine inceleyen bir
+                <p class="text-lg text-slate-400 leading-relaxed mb-4">
+                    OZTPAS, modern egitim analiz yöntemlerini kullanarak oğrenci başarısını derinlemesine inceleyen bir
                     platformdur.
-                    Sadece ham puanlara bakmak yerine, öğrencilerin genel içindeki gerçek konumlarını ve dersler arası
-                    etkileşimleri
+                    Sadece ham puanlara bakmak yerine, oğrencilerin genel içindeki gerçek konumlarını ve dersler arası
+                    etkilesimlerini
                     bilimsel modellerle analiz eder.
+                </p>
+                <p class="text-lg text-slate-400 leading-relaxed mb-4">
+                    Öğretmenler ve eğitimciler için tasarlanmış bu sistem, sınav sonuclarını karne notlarıyla
+                    karşılaştırarak
+                    öğrenci performansını çok yönlü değerlendirmenize olanak tanır. Her öğrenci için detaylı
+                    istatistiksel raporlar üretir.
+                </p>
+                <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                    Açık kaynaklı ve tamamen ücretsiz olan OZTPAS, Python'un güçlü veri analizi kütüphanelerini
+                    kullanarak
+                    profesyonel düzeyde analizler sunar. Verileriniz güvenle işlenir ve sunucuda saklanmaz.
                 </p>
                 <div class="space-y-4">
                     <div class="flex items-start gap-4">
@@ -420,49 +431,77 @@
                         <div>
                             <h4 class="font-bold text-white">İstatistiksel Standartlaştırma</h4>
                             <p class="text-slate-400">T-puanı dönüşümü ile farklı zorluktaki sınavları adilce
-                                karşılaştırır.</p>
+                                karşılaştırır. Z-skoru hesaplayarak öğrenci konumunu belirler.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-emerald-500/10 p-2 rounded-lg text-emerald-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Regresyon Analizi</h4>
+                            <p class="text-slate-400">Basit ve çoklu doğrusal regresyon ile sınav-karne ilişkisini
+                                matematiksel modele döker. R² ve RMSE metrikleri sunar.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-purple-500/10 p-2 rounded-lg text-purple-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Kapsamlı Raporlama</h4>
+                            <p class="text-slate-400">Detaylı CSV raporları, görsel grafikler ve indirilebilir ZIP
+                                arşivi ile tüm sonuclara kolayca ulaşın.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="bg-slate-900/50 border border-slate-800 p-8 rounded-3xl shadow-3xl">
                 <div class="mb-8">
-                    <h3 class="text-xl font-bold text-indigo-400 mb-2">T-Puani Nedir?</h3>
+                    <h3 class="text-xl font-bold text-indigo-400 mb-2">T-Puanı Nedir?</h3>
                     <p class="text-slate-400 text-sm mb-3">
                         Ortalamayı 50, standart sapmayi 10 olarak kabul eden bir standart puan turudur.
-                        Ogrencinin bir dersteki basarisinin diger ogrencilere gore nerede oldugunu gosterir.
+                        Öğrencinin bir dersteki başarıının diğer öğrencilerine göre nerede olduğunu gösterir.
                     </p>
                     <p class="text-slate-400 text-sm mb-3">
-                        T-puani sayesinde farkli siniflar veya farkli zorluk seviyelerindeki sinavlari adil bir sekilde
-                        karsilastirabilirsiniz.
-                        50 ustu puanlar ortalamanin uzerinde, 50 alti puanlar ise ortalamanin altinda basariyi gosterir.
+                        T-puanı sayesinde farklı sınıflar veya farklı zorluk seviyelerindeki sınavları adil bir şekilde
+                        karşılaştırabilirsiniz.
+                        50 üstü puanlar ortalamanın uzerinde, 50 altı puanlar ise ortalamanın altinda basarıyı gösterir.
                     </p>
                     <p class="text-slate-400 text-sm">
-                        Z-skoru (standart skor) ile hesaplanir: T = 50 + 10 * Z, burada Z = (X - ortalama) / standart
+                        Z-skoru (standart skor) ile hesaplanır: T = 50 + 10 * Z, burada Z = (X - ortalama) / standart
                         sapma
                     </p>
                 </div>
                 <div class="mb-8">
                     <h3 class="text-xl font-bold text-emerald-400 mb-2">Neden Regresyon?</h3>
                     <p class="text-slate-400 text-sm mb-3">
-                        Sinav sonuclari ile karne notlari arasindaki iliskiyi matematiksel bir modele doker.
-                        Coklu regresyon ile bir ogrencinin basarisini tum derslerin etkisini dikkate alarak tahmin eder.
+                        Sınav sonucları ile karne notları arasındaki ilişkiyi matematiksel bir modele döker.
+                        Çoklu regresyon ile bir öğrencinin başarısını tüm derslerin etkisini dikkate alarak tahmin eder.
                     </p>
                     <p class="text-slate-400 text-sm mb-3">
-                        R² (belirleme katsayisi) ile modelin aciklama gucunu, RMSE ile tahmin hatasini olceriz.
-                        Bu metrikler sayesinde analizin guvenilirligini degerlendirebilirsiniz.
+                        R² (belirleme katsayısı) ile modelin açıklama gücü, RMSE ile tahmin hatası ölçeriz.
+                        Bu metrikler sayesinde analizin güvenilirliğini değerlendirebilirsiniz.
                     </p>
                     <p class="text-slate-400 text-sm">
-                        Basit regresyon tek degiskenle, coklu regresyon ise tum dersleri bir arada analiz ederek daha
-                        kapsamli sonuclar sunar.
+                        Basit regresyon tek değişkenle, coklu regresyon ise tüm dersleri bir arada analiz ederek daha
+                        kapsamlı sonuclar sunar.
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-purple-400 mb-2">Ek Ozellikler</h3>
+                    <h3 class="text-xl font-bold text-purple-400 mb-2">Ek Özellikler</h3>
                     <p class="text-slate-400 text-sm">
-                        Korelasyon matrisi ile dersler arasi iliskileri, yuzdelik siralamalar ile ogrenci konumunu,
-                        aykiri deger tespiti ile normal disi sonuclari ve performans indeksi ile genel basari puanini
-                        hesapliyoruz.
+                        Korelasyon matrisi ile dersler arası ilişkileri, yüzdelik sıralamalar ile öğrenci konumunu,
+                        aykırı değer tespiti ile normal dışı sonuçları ve performans indeksi ile genel başarı puanını
+                        hesaplıyoruz.
                     </p>
                 </div>
             </div>
